@@ -94,7 +94,10 @@ def text_ins_reg(ins):
     return ins
 
 
-def re_cellstr(str):
+def cellstr(str):
+    #####
+    ##### 全角スペースはASCIIのスペースに『全て』置き換わるコードにしている。
+    #####
     # 文字列前後の空白を削除。
     str = str.strip()
     # セル内改行を取り除く。
@@ -108,8 +111,8 @@ def re_cellstr(str):
     # 『（）』カッコ
     str = re.sub('(（)(.+?)(）)', r'〓PAREN〓\2〓PAREN〓', str)
     str = re.sub('(［)(.+?)(］)', r'〓BRACKET〓\2〓BRACKET〓', str)
-    str = re.sub('：', '〓COLON〓', str)
     # 『：』コロン
+    str = re.sub('：', '〓COLON〓', str)
     str = jaconv.z2h(str, kana=False, ascii=True, digit=False)
     # 『〜』カラ復号
     str = str.replace('〓TILDE〓', '〜')

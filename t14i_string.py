@@ -60,7 +60,7 @@ def name5justify(ins):
 # 氏名揃え　7文字揃え
 def name7justify(ins):
     justifed_name = ""
-    ins = t14i_regex.re_cellstr(ins)
+    ins = t14i_regex.cellstr(ins)
     name = ins.split()
     
     uji_size = len(name[0])
@@ -119,6 +119,28 @@ def name4justify_with_ruby(ins):
         else:
             justifed_name = f"[{name[0]}/{name[2]}][{name[1]}/{name[3]}]"
 
+    return justifed_name
+
+
+# 氏名揃え　ルビ付き　5文字揃え
+def name5justify_with_ruby(ins):
+    justifed_name = ""
+    name = ins.split()
+    uji_size = len(name[0])
+    mei_size = len(name[1])
+    # 〓　　　〓
+    if uji_size == 1 and mei_size == 1:
+        justifed_name = f'{name[0]}　　　{name[1]}'
+    # 〓〓　〓〓 or 〓　〓〓〓 or 〓〓〓　〓
+    elif uji_size == 2 and mei_size == 2 or uji_size == 1 and mei_size == 3 or uji_size == 3 and mei_size == 1:
+        justifed_name = f'{name[0]}　{name[1]}'
+    # 〓　　〓〓 or 〓〓　　〓
+    elif uji_size == 1 and mei_size == 2 or uji_size == 2 and mei_size == 1:
+        justifed_name = f'{name[0]}　　{name[1]}'
+    # 〓〓 〓〓〓 or 〓〓〓　〓〓 or 〓〓〓　〓〓〓 or 〓〓〓　〓〓〓〓 or 〓〓〓〓　〓〓〓 or other
+    else:
+        justifed_name = f'{name[0]}{name[1]}'
+        
     return justifed_name
 
 
