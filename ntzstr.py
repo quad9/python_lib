@@ -169,3 +169,18 @@ def each_han_with_ruby(name, ruby):
         tmp_name_with_ruby.append(name_with_ruby)
     
     return tmp_name_with_ruby
+
+
+# 日付を入れたら月・日・曜日だけを配列で返すコード。
+# option w => ウィーク => 曜日の意味。
+def extdate(str, option = "d"):
+    str = re.sub("(月|日)", r" \1 ", str)
+    if "w" in option:
+        str = re.sub(r"[\(|（]\s*?(?=[月火水木金土日])", "", str)
+        str = re.sub(r"(?<=[月火水木金土日])\s*?[\)）]", "", str)
+    arr = str.split()
+    return arr[::2]
+
+# str = "12月20日"
+# str = "12月20日（月）"
+# print(ntzstr.extdate(str, "w"))

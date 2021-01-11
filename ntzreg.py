@@ -94,7 +94,7 @@ def text_ins_reg(ins):
     return ins
 
 
-def cellstr(str):
+def cellstr(str, option = "zs"):
     #####
     ##### 全角スペースはASCIIのスペースに『全て』置き換わるコードにしている。
     #####
@@ -106,6 +106,9 @@ def cellstr(str):
     str = jaconv.h2z(str)
 
     # 全角のアスキーをASCIIへ変換（スペースもASCIIになる。）。
+    if "zs" in option:
+        # 全角スペース
+        str = str.replace('　', '〓ZEN〓')
     # 『〜』カラ
     str = re.sub('[〜～]', '〓TILDE〓', str)
     # 『（）』カッコ
@@ -113,7 +116,11 @@ def cellstr(str):
     str = re.sub('(［)(.+?)(］)', r'〓BRACKET〓\2〓BRACKET〓', str)
     # 『：』コロン
     str = re.sub('：', '〓COLON〓', str)
+
     str = jaconv.z2h(str, kana=False, ascii=True, digit=False)
+    
+    # 全角スペース復号
+    str = str.replace('〓ZEN〓', '　')
     # 『〜』カラ復号
     str = str.replace('〓TILDE〓', '〜')
     # 『（）』カッコ復号
@@ -133,3 +140,5 @@ def delete_return(lines):
     ### オプション。句点以外で終わる改行コードを取り去る。
     lines = re.sub('(?<!。)\n', '', lines)
     return lines
+
+

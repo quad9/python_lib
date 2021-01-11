@@ -176,3 +176,14 @@ def each_han_with_ruby(name, ruby):
 #         else:
 #             tmp_arr.append('')
 #     return tmp_arr
+
+
+# 日付を入れたら月・日・曜日だけを配列で返すコード
+# w　ウィーク　曜日
+def extdate(str, option = "w"):
+    str = re.sub("(月|日)", r" \1 ", str)
+    if "w" in option:
+        str = re.sub(r"[\(|（]\s*?(?=[月火水木金土日])", "", str)
+        str = re.sub(r"(?<=[月火水木金土日])\s*?[\)）]", "", str)
+    arr = str.split()
+    return arr[::2]
