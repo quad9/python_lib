@@ -5,6 +5,7 @@ import pandas as pd
 import numpy as np
 sys.path.append('../lib')
 import ntzstr
+import ntznum
 
 def csv_reg(df_in):
     rows = []
@@ -98,7 +99,6 @@ def cellstr(str, option = "zs"):
     #####
     ##### 全角スペースはASCIIのスペースに『全て』置き換わるコードにしている。
     #####
-    # 文字列前後の空白を削除。
     str = str.strip()
     # セル内改行を取り除く。
     str = str.replace('\n', '▽')
@@ -106,6 +106,7 @@ def cellstr(str, option = "zs"):
     str = jaconv.h2z(str)
 
     # 全角のアスキーをASCIIへ変換（スペースもASCIIになる。）。
+    # 全角の数字をASCIIへ変換。
     if "zs" in option:
         # 全角スペース
         str = str.replace('　', '〓ZEN〓')
@@ -117,8 +118,8 @@ def cellstr(str, option = "zs"):
     # 『：』コロン
     str = re.sub('：', '〓COLON〓', str)
 
-    str = jaconv.z2h(str, kana=False, ascii=True, digit=False)
-    
+    str = jaconv.z2h(str, kana=False, ascii=True, digit=True)
+
     # 全角スペース復号
     str = str.replace('〓ZEN〓', '　')
     # 『〜』カラ復号

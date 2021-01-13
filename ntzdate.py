@@ -1,5 +1,5 @@
-import datetime
-# from datetime import as dt
+from datetime import datetime
+
 
 WAREKI_START = {
     '令和': datetime(2019, 5, 1),
