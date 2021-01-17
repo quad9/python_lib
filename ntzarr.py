@@ -39,3 +39,20 @@ def pickcell(df_column, option= "s"):
         anchor_index.append([play, pause])
     
     return anchor_index
+
+
+
+def tumamu(df_column, refer_column):
+    categories = np.unique(refer_column, return_index=True)
+    c_start = list(np.unique(categories[1]))
+    c_puase = c_start[1:] + [len(df_column)]
+
+    slice_scape = []
+    for start, pause in zip(c_start, c_puase):
+        slice_scape.append([start, pause])
+
+    tmp_arr = [np.nan] * len(df_column)
+    for scope in slice_scape:
+        tmp_arr[scope[0]] = "、".join(df_column[scope[0]: scope[1]])
+
+    return tmp_arr
