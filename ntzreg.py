@@ -113,7 +113,7 @@ def cellstr(str, option = "zs"):
     # 『〜』カラ
     str = re.sub('[〜～]', '〓TILDE〓', str)
     # 『（）』カッコ
-    str = re.sub('(（)(.+?)(）)', r'〓PAREN〓\2〓PAREN〓', str)
+    str = re.sub('(\(|（)(.+?)(\)|）)', r'〓PAREN〓\2〓PAREN〓', str)
     str = re.sub('(［)(.+?)(］)', r'〓BRACKET〓\2〓BRACKET〓', str)
     # 『：』コロン
     str = re.sub('：', '〓COLON〓', str)
@@ -128,7 +128,7 @@ def cellstr(str, option = "zs"):
     str = re.sub('(〓PAREN〓)(.+?)(〓PAREN〓)', r'（\2）', str)
     str = re.sub('(〓BRACKET〓)(.+?)(〓BRACKET〓)', r'（\2）', str)
     # 『：』コロン復号
-    str = re.sub('：', '〓COLON〓', str)
+    str = re.sub('〓COLON〓', '：', str)
 
     # スペース（複数含む）をスペース一つに変換。
     str = re.sub("\s+", " ", str)
