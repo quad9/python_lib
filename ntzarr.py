@@ -24,7 +24,7 @@ def pickcell(df_column, option = "s"):
         else:
             scape.append([start, pause - 1])
 
-    return print(scape)
+    return scape
 
 
 def tumamu(df_column, refer_column):

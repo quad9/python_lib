@@ -126,12 +126,15 @@ def cellstr(str, option = "zs"):
     str = str.replace('〓TILDE〓', '〜')
     # 『（）』カッコ復号
     str = re.sub('(〓PAREN〓)(.+?)(〓PAREN〓)', r'（\2）', str)
-    str = re.sub('(〓BRACKET〓)(.+?)(〓BRACKET〓)', r'（\2）', str)
+    str = re.sub('(〓BRACKET〓)(.+?)(〓BRACKET〓)', r'［\2］', str)
     # 『：』コロン復号
     str = re.sub('〓COLON〓', '：', str)
 
+    # 前後のスペース（複数含む）を削除する。
+    str = str.strip()
     # スペース（複数含む）をスペース一つに変換。
-    str = re.sub("\s+", " ", str)
+    # あえて全角スペースで置き換えて見た目でわかるようにしておく。
+    str = re.sub("\s\s+", "　", str)
     # コラムが右に1列増えるのを防ぐため。
     str = re.sub(",", "/", str)
     return str
