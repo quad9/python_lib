@@ -9,22 +9,21 @@ import ntzreg
 #####################
 # 同じグループの縦セルをつまんでいくコードのためのインデックス作成
 def pickcell(df_column, option = "s"):
-    df_column.fillna("〓")
-
-    categories = np.unique(df_column.fillna("〓"), return_index=True)
+    column = [i for i in df_column.fillna("〓")]
+    categories = np.unique(column, return_index=True)
     categories_index = [value for key, value in dict(zip(categories[0], categories[1])).items() if key != "〓"]
     
     c_start = list(np.unique(categories_index))
     c_puase = c_start[1:] + [len(df_column)]
 
-    scape = []
+    scope = []
     for start, pause in zip(c_start, c_puase):
         if "s" == option:
-            scape.append([start, pause])
+            scope.append([start, pause])
         else:
-            scape.append([start, pause - 1])
+            scope.append([start, pause - 1])
 
-    return scape
+    return scope
 
 
 def tumamu(df_column, refer_column):
@@ -34,12 +33,12 @@ def tumamu(df_column, refer_column):
     c_start = list(np.unique(categories_index))
     c_puase = c_start[1:] + [len(df_column)]
 
-    slice_scape = []
+    slice_scope = []
     for start, pause in zip(c_start, c_puase):
-        slice_scape.append([start, pause])
+        slice_scope.append([start, pause])
 
     tmp_arr = [np.nan] * len(df_column)
-    for scope in slice_scape:
+    for scope in slice_scope:
         tmp_arr[scope[0]] = "、".join(df_column[scope[0]: scope[1]])
 
     return tmp_arr
