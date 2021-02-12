@@ -11,28 +11,32 @@ def name4justify(ins):
     justifed_name = ""
     # 前後の空白を取り去ってから
     ins = ins.strip()
-    # 氏名を配列として格納
-    name = ins.split()
-    # 条件を与えて
-    res = re.search("\s", ins)
-    # 作業開始
-    if res == None:
-        justifed_name = ins
-    else:
-        uji_size = len(name[0])
-        mei_size = len(name[1])
-        # 〓　〓 => 〓　　〓
-        if uji_size == 1 and mei_size == 1:
-            justifed_name = f'{name[0]}　　{name[1]}'
-        # 〓　〓〓 or 〓〓　〓 or 〓　〓〓〓 or 〓〓〓　〓
-        elif uji_size == 1 and mei_size == 2 or uji_size == 2 and mei_size == 1 or uji_size == 1 and mei_size == 3 or uji_size == 3 and mei_size == 1:
-            justifed_name = f'{name[0]}　{name[1]}'
-        # 〓〓　〓〓 or 〓〓 〓〓〓 or 〓〓〓　〓〓 or
-        # 〓〓〓　〓〓〓 or 〓〓〓　〓〓〓〓 or 〓〓〓〓　〓〓〓 or other
-        # elif uji_size == 2 and mei_size == 2 or uji_size == 1 and mei_size == 3 or uji_size == 3 and mei_size == 1:
-        #     justifed_name = f'{name[0]}{name[1]}'
+    # 文字列にスペースが入っていない場合の処理をする。
+    if re.match(r"\s", ins):
+        # 氏名を配列として格納
+        name = ins.split()
+        # 条件を与えて
+        res = re.search("\s", ins)
+        # 作業開始
+        if res == None:
+            justifed_name = ins
         else:
-            justifed_name = f'{name[0]}{name[1]}'
+            uji_size = len(name[0])
+            mei_size = len(name[1])
+            # 〓　〓 => 〓　　〓
+            if uji_size == 1 and mei_size == 1:
+                justifed_name = f'{name[0]}　　{name[1]}'
+            # 〓　〓〓 or 〓〓　〓 or 〓　〓〓〓 or 〓〓〓　〓
+            elif uji_size == 1 and mei_size == 2 or uji_size == 2 and mei_size == 1 or uji_size == 1 and mei_size == 3 or uji_size == 3 and mei_size == 1:
+                justifed_name = f'{name[0]}　{name[1]}'
+            # 〓〓　〓〓 or 〓〓 〓〓〓 or 〓〓〓　〓〓 or
+            # 〓〓〓　〓〓〓 or 〓〓〓　〓〓〓〓 or 〓〓〓〓　〓〓〓 or other
+            # elif uji_size == 2 and mei_size == 2 or uji_size == 1 and mei_size == 3 or uji_size == 3 and mei_size == 1:
+            #     justifed_name = f'{name[0]}{name[1]}'
+            else:
+                justifed_name = f'{name[0]}{name[1]}'
+    else:
+        justifed_name = ins
         
     return justifed_name
 
@@ -40,6 +44,7 @@ def name4justify(ins):
 # 氏名揃え　5文字揃え
 def name5justify(ins):
     justifed_name = ""
+    # 文字列にスペースが入っていない場合の処理をする。
     if re.match(r"\s", ins):
         # 1 splitは優秀。オプション無しで＃2と同じ処理をしてくれる。
         name = ins.split()
@@ -69,39 +74,43 @@ def name5justify(ins):
 def name7justify(ins):
     justifed_name = ""
     ins = ntzreg.cellstr(ins)
-    name = ins.split()
-    
-    uji_size = len(name[0])
-    mei_size = len(name[1])
-    # 〓　　　　　〓
-    if uji_size == 1 and mei_size == 1:
-        justifed_name = f'{name[0]}　　　　　{name[1]}'
-    # 〓　〓　〓　〓
-    elif uji_size == 2 and mei_size == 2:
-        justifed_name = f'{name[0][0]}　{name[0][1]}　{name[1][0]}　{name[1][1]}'
-    # 〓　　　〓　〓
-    elif uji_size == 1 and mei_size == 2:
-        justifed_name = f'{name[0]}　　　{name[1][0]}　{name[1][1]}'
-    # 〓　〓　　　〓
-    elif uji_size == 2 and mei_size == 1:
-        justifed_name = f'{name[0][0]}　{name[0][1]}　　　{name[1]}'
-    # 〓　　　〓〓〓 or 〓〓〓　　　〓
-    elif uji_size == 1 and mei_size == 3 or uji_size == 3 and mei_size == 1:
-        justifed_name = f'{name[0]}　　　{name[1]}'
-    # 〓　〓　〓〓〓
-    elif uji_size == 2 and mei_size == 3:
-        justifed_name = f'{name[0][0]}　{name[0][1]}　{name[1]}'
-    # 〓〓〓　〓　〓
-    elif uji_size == 3 and mei_size == 2:
-        justifed_name = f'{name[0]}　{name[1][0]}　{name[1][1]}'
-    # 〓〓〓　〓〓〓
-    elif uji_size == 3 and mei_size == 3:
-        justifed_name = f'{name[0]}　{name[1]}'
-    # 〓〓〓　〓〓〓〓 or 〓〓〓〓　〓〓〓
-    elif uji_size == 3 and mei_size == 4 or uji_size == 4 and mei_size == 3:
-        justifed_name = f'{name[0]}{name[1]}'
+    # 文字列にスペースが入っていない場合の処理をする。
+    if re.match(r"\s", ins):
+        name = ins.split()
+        
+        uji_size = len(name[0])
+        mei_size = len(name[1])
+        # 〓　　　　　〓
+        if uji_size == 1 and mei_size == 1:
+            justifed_name = f'{name[0]}　　　　　{name[1]}'
+        # 〓　〓　〓　〓
+        elif uji_size == 2 and mei_size == 2:
+            justifed_name = f'{name[0][0]}　{name[0][1]}　{name[1][0]}　{name[1][1]}'
+        # 〓　　　〓　〓
+        elif uji_size == 1 and mei_size == 2:
+            justifed_name = f'{name[0]}　　　{name[1][0]}　{name[1][1]}'
+        # 〓　〓　　　〓
+        elif uji_size == 2 and mei_size == 1:
+            justifed_name = f'{name[0][0]}　{name[0][1]}　　　{name[1]}'
+        # 〓　　　〓〓〓 or 〓〓〓　　　〓
+        elif uji_size == 1 and mei_size == 3 or uji_size == 3 and mei_size == 1:
+            justifed_name = f'{name[0]}　　　{name[1]}'
+        # 〓　〓　〓〓〓
+        elif uji_size == 2 and mei_size == 3:
+            justifed_name = f'{name[0][0]}　{name[0][1]}　{name[1]}'
+        # 〓〓〓　〓　〓
+        elif uji_size == 3 and mei_size == 2:
+            justifed_name = f'{name[0]}　{name[1][0]}　{name[1][1]}'
+        # 〓〓〓　〓〓〓
+        elif uji_size == 3 and mei_size == 3:
+            justifed_name = f'{name[0]}　{name[1]}'
+        # 〓〓〓　〓〓〓〓 or 〓〓〓〓　〓〓〓
+        elif uji_size == 3 and mei_size == 4 or uji_size == 4 and mei_size == 3:
+            justifed_name = f'{name[0]}{name[1]}'
+        else:
+            justifed_name = "例外発生"
     else:
-        justifed_name = "例外発生"
+        justifed_name = ins
         
     return justifed_name
 
