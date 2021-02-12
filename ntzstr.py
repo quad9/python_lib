@@ -40,24 +40,27 @@ def name4justify(ins):
 # 氏名揃え　5文字揃え
 def name5justify(ins):
     justifed_name = ""
-    # 1 splitは優秀。オプション無しで＃2と同じ処理をしてくれる。
-    name = ins.split()
-    # 2 だから、この処理は不要です。
-    # name = [n.strip() for n in ins.sprit()]
-    uji_size = len(name[0])
-    mei_size = len(name[1])
-    # 〓　　　〓
-    if uji_size == 1 and mei_size == 1:
-        justifed_name = f'{name[0]}　　　{name[1]}'
-    # 〓〓　〓〓 or 〓　〓〓〓 or 〓〓〓　〓
-    elif uji_size == 2 and mei_size == 2 or uji_size == 1 and mei_size == 3 or uji_size == 3 and mei_size == 1:
-        justifed_name = f'{name[0]}　{name[1]}'
-    # 〓　　〓〓 or 〓〓　　〓
-    elif uji_size == 1 and mei_size == 2 or uji_size == 2 and mei_size == 1:
-        justifed_name = f'{name[0]}　　{name[1]}'
-    # 〓〓 〓〓〓 or 〓〓〓　〓〓 or 〓〓〓　〓〓〓 or 〓〓〓　〓〓〓〓 or 〓〓〓〓　〓〓〓 or other
+    if re.match(r"\s", ins):
+        # 1 splitは優秀。オプション無しで＃2と同じ処理をしてくれる。
+        name = ins.split()
+        # 2 だから、この処理は不要です。
+        # name = [n.strip() for n in ins.sprit()]
+        uji_size = len(name[0])
+        mei_size = len(name[1])
+        # 〓　　　〓
+        if uji_size == 1 and mei_size == 1:
+            justifed_name = f'{name[0]}　　　{name[1]}'
+        # 〓〓　〓〓 or 〓　〓〓〓 or 〓〓〓　〓
+        elif uji_size == 2 and mei_size == 2 or uji_size == 1 and mei_size == 3 or uji_size == 3 and mei_size == 1:
+            justifed_name = f'{name[0]}　{name[1]}'
+        # 〓　　〓〓 or 〓〓　　〓
+        elif uji_size == 1 and mei_size == 2 or uji_size == 2 and mei_size == 1:
+            justifed_name = f'{name[0]}　　{name[1]}'
+        # 〓〓 〓〓〓 or 〓〓〓　〓〓 or 〓〓〓　〓〓〓 or 〓〓〓　〓〓〓〓 or 〓〓〓〓　〓〓〓 or other
+        else:
+            justifed_name = f'{name[0]}{name[1]}'
     else:
-        justifed_name = f'{name[0]}{name[1]}'
+        justifed_name = ins
         
     return justifed_name
 
